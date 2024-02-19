@@ -5,14 +5,7 @@
   },
   "version": "0.0.0-development",
   "description": "Get private key from a path, environment variables, or a `*.pem` file in the current working directory",
-  "main": "index.js",
-  "scripts": {
-    "build": "node scripts/build.mjs && tsc -p tsconfig.json",
-    "lint": "prettier --check '{src,test}/**/*.{ts,md}' *.md *.json",
-    "lint:fix": "prettier --write '{src,test}/**/*.{ts,md}' *.md *.json",
-    "pretest": "npm run -s lint",
-    "test": "jest --coverage"
-  },
+  "main": "dist-node/index.js",
   "repository": "github:probot/get-private-key",
   "keywords": [
     "github-app",
@@ -32,55 +25,12 @@
     "ts-jest": "^29.0.0",
     "typescript": "^5.0.0"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.(ts|tsx)$": [
-        "ts-jest",
-        {
-          "tsconfig": "test/tsconfig.test.json"
-        }
-      ]
-    },
-    "testEnvironment": "node",
-    "coverageThreshold": {
-      "global": {
-        "statements": 100,
-        "branches": 100,
-        "functions": 100,
-        "lines": 100
-      }
-    }
-  },
-  "release": {
-    "branches": [
-      "+([0-9]).x",
-      "main",
-      "next",
-      {
-        "name": "beta",
-        "prerelease": true
-      }
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/github",
-      [
-        "@semantic-release/npm",
-        {
-          "pkgRoot": "./pkg"
-        }
-      ],
-      [
-        "semantic-release-plugin-update-version-in-files",
-        {
-          "files": [
-            "pkg/dist-web/*",
-            "pkg/dist-node/*",
-            "pkg/*/version.*"
-          ]
-        }
-      ]
-    ]
-  }
+  "files": [
+    "dist-*/**",
+    "bin/**"
+  ],
+  "module": "dist-web/index.js",
+  "types": "dist-types/index.d.ts",
+  "source": "dist-src/index.js",
+  "sideEffects": false
 }
